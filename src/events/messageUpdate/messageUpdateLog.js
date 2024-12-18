@@ -29,7 +29,7 @@ module.exports = async (client, oldMessage, newMessage) => {
         url: `https://discord.com/channels/${oldMessage.guild.id}/${oldMessage.channel.id}/${oldMessage.id}`
     })
     .setColor("Yellow")
-    .setDescription(oldMessage.content)
+    .setDescription(oldMessage.content.length == 0 ? "*The message has no content.*" : oldMessage.content)
     .setTimestamp(oldMessage.createdAt);
 
     let afterMessage = new EmbedBuilder()
@@ -39,7 +39,7 @@ module.exports = async (client, oldMessage, newMessage) => {
         url: `https://discord.com/channels/${oldMessage.guild.id}/${oldMessage.channel.id}/${oldMessage.id}`
     })
     .setColor("Green")
-    .setDescription(newMessage.content)
+    .setDescription(newMessage.content.length == 0 ? "*The message has no content.*" : newMessage.content)
     .setTimestamp();
 
     logChannel.send({

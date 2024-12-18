@@ -27,7 +27,7 @@ module.exports = async (client, message) => {
         iconURL: message.author.avatarURL()
     })
     .setColor("Red")
-    .setDescription(message.content)
+    .setDescription(message.content.length == 0 ? "*The message has no content.*" : message.content)
     .setTimestamp(message.createdAt);
 
     let files = [];
