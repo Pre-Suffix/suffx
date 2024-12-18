@@ -1,0 +1,6 @@
+{
+    "version": "1.2",
+    "build": 232,
+    "codename": "Phoenix",
+    "changelog": "+ Complete rewrite of the bot's code.\n- Removal of several commands and features deemed unecessary."
+}

@@ -1,0 +1,29 @@
+{
+  "name": "suffx",
+  "version": "1.2.232",
+  "description": "SuffX Bot for Discord, rewritten",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Pre-Suffix/suffx.git"
+  },
+  "author": "PreSuffix",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Pre-Suffix/suffx/issues"
+  },
+  "homepage": "https://github.com/Pre-Suffix/suffx#readme",
+  "dependencies": {
+    "bluebird": "^3.7.2",
+    "discord.js": "^14.16.3",
+    "dotenv": "^16.4.7",
+    "mongoose": "^8.9.0",
+    "node-fetch": "^2.6.7",
+    "openai": "^4.76.3",
+    "parse-duration": "^1.1.1",
+    "uuid": "^11.0.3"
+  }
+}

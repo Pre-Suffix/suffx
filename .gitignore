@@ -1,0 +1,5 @@
+.env
+node_modules/
+chatlogs/
+todolist.txt
+test.js
