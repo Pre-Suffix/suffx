@@ -22,6 +22,7 @@ module.exports = async (client, message) => {
             serverModel.create({
                 guildId: String(message.guild.id),
                 levelRoles: [],
+                autoRoles: [],
                 logChannel: "none",
                 serverName: message.guild.name
             });

@@ -8,6 +8,7 @@ const serverSchema = new Schema({
             level: Number
         }
     ],
+    autoRoles: Array,
     serverName: String
 });
 
