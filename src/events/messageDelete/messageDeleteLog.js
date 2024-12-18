@@ -19,7 +19,7 @@ module.exports = async (client, message) => {
 
     let logChannel = await message.guild.channels.fetch(server.logChannel);
 
-    if(!logChannel) return;
+    if(typeof logChannel.send != "function" || !logChannel) return;
 
     let messageEmbed = new EmbedBuilder()
     .setAuthor({
