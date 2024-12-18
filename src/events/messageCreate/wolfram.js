@@ -4,8 +4,20 @@ const fetch = require("../../utils/fetch");
 module.exports = async (client, message) => {
     if((message.content.startsWith(".wolfram") || message.content.startsWith(".jarvis")) && !message.author.bot) {
         try {
-            let query = String(message.content).slice(9);
+            let query = String(message.content).split(" ").slice(1).join(" ");
         
+            if(query.length < 0) {
+                message.reply({
+                    embeds: [
+                        new EmbedBuilder()
+                        .setTitle("Invalid Syntax:")
+                        .setDescription("Correct Syntax: `.wolfram <QUERY>`")
+                        .setColor("#ed4245")
+                    ]
+                });
+                return;
+            }
+
             let result = await fetch.raw(`https://api.wolframalpha.com/v1/result?appid=${process.env.WOLFRAM_API}&input=${encodeURI(query).replace(/\+/g, "%2B")}`);
             let wolfram = new EmbedBuilder()
             .setAuthor({
