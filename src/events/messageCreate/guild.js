@@ -23,7 +23,11 @@ module.exports = async (client, message) => {
                 guildId: String(message.guild.id),
                 levelRoles: [],
                 autoRoles: [],
+                starboard: {
+                    active: false
+                },
                 logChannel: "none",
+                keepRoles: false,
                 serverName: message.guild.name
             });
         }

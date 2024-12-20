@@ -9,7 +9,8 @@ const client = new Discord.Client({
         Discord.IntentsBitField.Flags.Guilds,
         Discord.IntentsBitField.Flags.GuildMembers,
         Discord.IntentsBitField.Flags.GuildMessages,
-        Discord.IntentsBitField.Flags.MessageContent
+        Discord.IntentsBitField.Flags.MessageContent,
+        Discord.IntentsBitField.Flags.GuildMessageReactions
     ],
     partials: [
         "MESSAGE",
@@ -20,10 +21,19 @@ const client = new Discord.Client({
 
 async function main() {
     try {
-        await mongoose.connect(process.env.MONGO_URI);
+        let MONGO_URI = process.env.MONGO_URI;
+        let TOKEN = process.env.TOKEN;
+
+        if(process.argv[2] == "--dev") {
+            console.log("====RUNNING IN DEV MODE=====")
+            MONGO_URI = process.env.DEV_MONGO_URI;
+            TOKEN = process.env.DEV_TOKEN;
+        }
+
+        await mongoose.connect(MONGO_URI);
         console.log("(1/4) Connected to database.")
 
-        client.login(process.env.TOKEN);
+        client.login(TOKEN);
 
         eventHandler(client);
     } catch (err) {

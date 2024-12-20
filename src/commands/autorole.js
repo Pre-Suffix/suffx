@@ -4,7 +4,7 @@ const serverModel = require("../models/serverModel");
 
 module.exports = {
     name: "autorole",
-    description: "Manages the server's auto roles.",
+    description: "Manages the server's auto roles. [ADMIN ONLY]",
     options: [
         {
             name: "add",

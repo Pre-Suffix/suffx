@@ -1,6 +1,6 @@
 {
     "version": "1.2",
-    "build": 233,
+    "build": 234,
     "codename": "Phoenix",
-    "changelog": "+ Adds auto role system."
+    "changelog": "+ Adds starboard system.\n+ Adds inspirobot quote"
 }

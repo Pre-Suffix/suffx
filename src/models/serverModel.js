@@ -8,7 +8,24 @@ const serverSchema = new Schema({
             level: Number
         }
     ],
+    starboard: {
+        channelId: String,
+        minStars: Number,
+        active: Boolean,
+        visibilityRole: String,
+        reactionEmoji: {
+            emoji: String,
+            defaultEmoji: Boolean
+        },
+        emojis: [
+            {
+                emoji: String,
+                minStars: Number
+            }
+        ]
+    },
     autoRoles: Array,
+    keepRoles: Boolean,
     serverName: String
 });
 
