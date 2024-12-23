@@ -61,7 +61,7 @@ module.exports = (client, message) => {
         "dadjoke"
     ]
 
-    if(message.author.bot) return;
+    if(message.author.bot || !String(message.content).startsWith(".")) return;
 
     let command = message.content.split(" ")[0].slice(1);
 
