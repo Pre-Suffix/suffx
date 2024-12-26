@@ -11,6 +11,16 @@ const getImage = require("../../utils/getImage");
  */
 
 module.exports = async (client, reaction, user) => {
+
+    if(reaction.partial) {
+        try {
+            await reaction.fetch();
+        } catch (error) {
+            console.log("starboardReactionAdd.js: ", error);
+            return;
+        }
+    }
+
     let message = reaction.message;
     if(!message.inGuild()) return;
 

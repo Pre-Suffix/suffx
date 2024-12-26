@@ -24,26 +24,26 @@ module.exports = async (client, oldMessage, newMessage) => {
 
     let beforeMessage = new EmbedBuilder()
     .setAuthor({
-        name: "(Before) " + oldMessage.author.tag,
-        iconURL: oldMessage.author.avatarURL(),
-        url: `https://discord.com/channels/${oldMessage.guild.id}/${oldMessage.channel.id}/${oldMessage.id}`
+        name: "(Before) " + newMessage.author.tag,
+        iconURL: newMessage.author.avatarURL(),
+        url: `https://discord.com/channels/${newMessage.guild.id}/${newMessage.channel.id}/${newMessage.id}`
     })
     .setColor("Yellow")
-    .setDescription(oldMessage.content.length == 0 ? "*The message has no content.*" : oldMessage.content)
+    .setDescription(oldMessage.content.length == 0 ? null : oldMessage.content)
     .setTimestamp(oldMessage.createdAt);
 
     let afterMessage = new EmbedBuilder()
     .setAuthor({
-        name: "(After) " + oldMessage.author.tag,
-        iconURL: oldMessage.author.avatarURL(),
-        url: `https://discord.com/channels/${oldMessage.guild.id}/${oldMessage.channel.id}/${oldMessage.id}`
+        name: "(After) " + newMessage.author.tag,
+        iconURL: newMessage.author.avatarURL(),
+        url: `https://discord.com/channels/${newMessage.guild.id}/${newMessage.channel.id}/${newMessage.id}`
     })
     .setColor("Green")
-    .setDescription(newMessage.content.length == 0 ? "*The message has no content.*" : newMessage.content)
+    .setDescription(newMessage.content.length == 0 ? null : newMessage.content)
     .setTimestamp();
 
     logChannel.send({
-        content: `Message edited. https://discord.com/channels/${oldMessage.guild.id}/${oldMessage.channel.id}/${oldMessage.id}`,
+        content: `Message edited. https://discord.com/channels/${newMessage.guild.id}/${newMessage.channel.id}/${newMessage.id}`,
         embeds: [
             beforeMessage,
             afterMessage

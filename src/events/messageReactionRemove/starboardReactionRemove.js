@@ -11,6 +11,16 @@ const starModel = require("../../models/starModel");
  */
 
 module.exports = async (client, reaction, user) => {
+
+    if(reaction.partial) {
+        try {
+            await reaction.fetch();
+        } catch (error) {
+            console.log("starboardReactionRemove.js: ", error);
+            return;
+        }
+    }
+
     let message = reaction.message;
     if(!message.inGuild()) return;
 

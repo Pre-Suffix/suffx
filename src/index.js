@@ -13,9 +13,9 @@ const client = new Discord.Client({
         Discord.IntentsBitField.Flags.GuildMessageReactions
     ],
     partials: [
-        "MESSAGE",
-        "CHANNEL",
-        "REACTION"
+        Discord.Partials.Channel,
+        Discord.Partials.Message,
+        Discord.Partials.Reaction
     ]
 });
 
