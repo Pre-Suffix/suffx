@@ -1,6 +1,6 @@
 {
     "version": "1.2",
-    "build": 234,
+    "build": 235,
     "codename": "Phoenix",
-    "changelog": "+ Adds starboard system.\n+ Adds inspirobot quote\n+ Adds rolekeeping functionality."
+    "changelog": "+ Fixes bugs"
 }

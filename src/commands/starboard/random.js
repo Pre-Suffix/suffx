@@ -18,12 +18,13 @@ module.exports = async (client, interaction) => {
     let user = interaction.options.getUser("user");
     let channel = interaction.options.getChannel("channel");
 
-    if(user) filter.message.userId = user.id;
-    if(channel) filter.channelId = channel.id;
+    if(channel) filter["channelId"] = channel.id;
 
     let star = await starModel.find(filter);
 
-    if(!star) {
+    if(star && user) star.filter((x) => x.message.userId == user.id);
+
+    if((star ?? []).length == 0) {
         interaction.editReply({
             content: "No starboard messages were found."
         });
