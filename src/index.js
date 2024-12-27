@@ -22,12 +22,12 @@ const client = new Discord.Client({
 async function main() {
     try {
         let MONGO_URI = process.env.MONGO_URI;
-        let TOKEN = process.env.TOKEN;
+        let TOKEN = process.env.DISCORD_TOKEN;
 
         if(process.argv[2] == "--dev") {
             console.log("====RUNNING IN DEV MODE=====")
             MONGO_URI = process.env.DEV_MONGO_URI;
-            TOKEN = process.env.DEV_TOKEN;
+            TOKEN = process.env.DISCORD_DEV_TOKEN;
         }
 
         await mongoose.connect(MONGO_URI);

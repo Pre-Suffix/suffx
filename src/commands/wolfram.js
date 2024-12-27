@@ -20,7 +20,7 @@ module.exports = {
         try {
             let query = interaction.options.getString("query");
         
-            let result = await fetch.raw(`https://api.wolframalpha.com/v1/result?appid=${process.env.WOLFRAM_API}&input=${encodeURI(query).replace(/\+/g, "%2B")}`);
+            let result = await fetch.raw(`https://api.wolframalpha.com/v1/result?appid=${process.env.WOLFRAM_TOKEN}&input=${encodeURI(query).replace(/\+/g, "%2B")}`);
             let wolfram = new EmbedBuilder()
             .setAuthor({
                 name: "WolframAlpha",

@@ -3,14 +3,14 @@ const timerModel = require("../../models/timerModel");
 const parseDuration = require('parse-duration');
 
 module.exports = async (client, message) => {
-    if(message.content.startsWith(".timer") && !message.author.bot) {
+    if((message.content.startsWith(".timer") || message.content.startsWith(".reminder")) && !message.author.bot) {
         try {
             if(message.content.split(" ").length == 1 || message.content.split(" ")[1] == "") {
                 message.reply({
                     embeds: [
                         new EmbedBuilder()
                         .setTitle("Invalid Syntax:")
-                        .setDescription("Correct Syntax: `.timer <DURATION>`")
+                        .setDescription(`Correct Syntax: \`${message.content.split(" ")[0]} <DURATION>\``)
                         .setColor("#ed4245")
                     ]
                 });

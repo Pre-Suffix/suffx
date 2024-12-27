@@ -3,11 +3,11 @@ const chatModel = require("../../models/chatModel");
 const getMessages = require("../../utils/getMessages");
 const saveMessages = require("../../utils/saveMessages");
 const filter = require("../../utils/filter");
-const getUUID = require("../../utils/getUUID");
+const { v4: getUUID } = require("uuid");
 
 module.exports = (client, interaction) => {
 
-    import("../../utils/chatFunctions.mjs").then(async (chatFunctions) => {
+    import("./utils/chatFunctions.mjs").then(async (chatFunctions) => {
         let prompt = interaction.options.getString("prompt");
         let model = interaction.options.getString("model") ?? "gpt-4o-mini";
         let instructions = interaction.options.getString("instructions") ?? "";

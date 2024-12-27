@@ -1,7 +1,7 @@
 import OpenAI from 'openai';
 
 const client = new OpenAI({
-    apiKey: process.env.OPENAI_API
+    apiKey: process.env.OPENAI_TOKEN
 });
 
 export async function getCompletion(prompt, model = "gpt-3.5-turbo-instruct", temperature = 0.7) {

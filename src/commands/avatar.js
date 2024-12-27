@@ -1,5 +1,4 @@
 const { ApplicationCommandOptionType } = require("discord.js");
-const getTag = require("../utils/getTag");
 
 module.exports = {
     name: "avatar",

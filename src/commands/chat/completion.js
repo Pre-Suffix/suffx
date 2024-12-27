@@ -1,7 +1,7 @@
 const filter = require("../../utils/filter");
 
 module.exports = (client, interaction) => {
-    import("../../utils/chatFunctions.mjs").then(async (chatFunctions) => {
+    import("./utils/chatFunctions.mjs").then(async (chatFunctions) => {
         let prompt = interaction.options.getString("prompt");
 
         let response = await chatFunctions.getCompletion(

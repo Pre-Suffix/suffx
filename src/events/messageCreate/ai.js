@@ -14,7 +14,7 @@ module.exports = (client, message) => {
                     ]
                 });
             } else {
-                import("../../utils/chatFunctions.mjs").then(async (chatFunctions) => {
+                import("../../commands/chat/utils/chatFunctions.mjs").then(async (chatFunctions) => {
                     await message.channel.sendTyping();
 
                     let prompt = message.content.split(" ").slice(1).join(" ");

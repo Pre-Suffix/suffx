@@ -1,5 +1,4 @@
 const { ApplicationCommandOptionType, EmbedBuilder } = require("discord.js");
-const getTag = require("../utils/getTag");
 
 module.exports = {
     name: "userinfo",
@@ -19,7 +18,7 @@ module.exports = {
         let mbr = interaction.guild.members.cache.find((member) => member.id == user.id);
         
         let userInfo = new EmbedBuilder()
-        .setAuthor({name: getTag(user)})
+        .setAuthor({name: user.tag})
         .setThumbnail(mbr.avatar ? mbr.avatarURL({format: "png", size: 4096}) : user.avatarURL({format: "png", size: 4096}))
         .addFields([
           {
