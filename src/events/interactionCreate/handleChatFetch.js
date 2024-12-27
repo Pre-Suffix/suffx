@@ -9,7 +9,7 @@ const getMessages = require("../../utils/getMessages");
 
 module.exports = async (client, interaction) => {
     if(!interaction.isStringSelectMenu()) return;
-    if(!interaction.customId.startsWith("cd")) return;
+    if(!interaction.customId.startsWith("cd_")) return;
 
     let uuid = interaction.values[0].split("_")[1];
     let messages = getMessages(uuid);

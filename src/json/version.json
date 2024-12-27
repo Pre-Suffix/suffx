@@ -1,6 +1,6 @@
 {
     "version": "1.2",
-    "build": 235,
+    "build": 236,
     "codename": "Phoenix",
-    "changelog": "+ Fixes bugs"
+    "changelog": "+ Updates leaderboard and xp commands.\n+ Message logging improved"
 }

@@ -11,7 +11,7 @@ const filter = require("../../utils/filter");
 
 module.exports = async (client, interaction) => {
     if(!interaction.isButton()) return;
-    if(!interaction.customId.startsWith("cr")) return;
+    if(!interaction.customId.startsWith("cr_")) return;
 
     let interactionID = interaction.customId;
     let chats = await chatModel.find({

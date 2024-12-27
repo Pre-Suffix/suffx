@@ -27,7 +27,7 @@ module.exports = async (client, message) => {
         iconURL: message.author.avatarURL()
     })
     .setColor("Red")
-    .setDescription(message.content.length == 0 ? "*The message has no content.*" : message.content)
+    .setDescription(message.content.length == 0 ? null : message.content)
     .setTimestamp(message.createdAt);
 
     let files = [];
@@ -39,7 +39,8 @@ module.exports = async (client, message) => {
     logChannel.send({
         content: `Message deleted on <#${message.channel.id}>`,
         embeds: [
-            messageEmbed
+            messageEmbed,
+            ...message.embeds
         ],
         files
     });

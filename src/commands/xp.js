@@ -17,9 +17,18 @@ module.exports = {
     callback: async (client, interaction) => {
         let user = interaction.options.getUser("user") ?? interaction.user;
 
-        let xp = await xpModel.findOne({
-            userId: String(user.id),
+        let xps = await xpModel.find({
             guildId: String(interaction.guild.id)
+        });
+
+        let xp = false;
+        let pos = 0;
+
+        xps.forEach((x, i) => {
+            if(x.userId == user.id) {
+                xp = x;
+                pos = i + 1;
+            }
         });
 
         if(xp) {
@@ -29,7 +38,7 @@ module.exports = {
             .setThumbnail(user.avatarURL({ size: 4096 }))
             .addFields([
                 {
-                    name: `Level ${Math.floor(xp.xp / 5000)} (${+(xp.xp % 5000 / 1000).toFixed(1)}K / 5K) • ${new Intl.NumberFormat('en-US').format(xp.xp).replace(/,/g, " ")}xp`,
+                    name: `#${new Intl.NumberFormat('en-US').format(pos).replace(/,/g, " ")} • Lvl ${Math.floor(xp.xp / 5000)} • ${new Intl.NumberFormat('en-US').format(xp.xp).replace(/,/g, " ")}xp`,
                     value: `\`[${new Array(Math.floor((xp.xp % 5000 / 5000) * 25)).fill("=").join("")}${new Array(25 - Math.floor((xp.xp % 5000 / 5000) * 25)).fill(" ").join("")}]\``
                 }
             ]);
