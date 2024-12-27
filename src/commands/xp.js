@@ -21,6 +21,8 @@ module.exports = {
             guildId: String(interaction.guild.id)
         });
 
+        xps.sort((a, b) => b.xp - a.xp);
+
         let xp = false;
         let pos = 0;
 
@@ -31,7 +33,7 @@ module.exports = {
             }
         });
 
-        if(xp) {
+        if(xps && xp != false) {
             let xpEmbed = new EmbedBuilder()
             .setDescription(`### <@${user.id}>'s XP`)
             .setColor(process.env.SUFFXCOLOR)
