@@ -22,7 +22,7 @@ module.exports = {
 
         if(xps) {
 
-            let pageCount = Math.ceil(xps.lenght / 10);
+            let pageCount = Math.ceil(xps.length / 10);
 
             if(page > pageCount) page = pageCount;
 
