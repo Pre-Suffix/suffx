@@ -31,7 +31,7 @@ module.exports = {
             xps = xps.slice((page - 1) * 10, page * 10);
 
             xps.forEach((x, i) => {
-                description.push(`**${i + 1}.** \`[ LEVEL ${Math.floor(x.xp / 5000)} • ${new Intl.NumberFormat('en-US').format(x.xp).replace(/,/g, " ")}xp ]\` <@${x.userId}>`);
+                description.push(`**${i + 1 + ((page - 1) * 10)}.** \`[ LEVEL ${Math.floor(x.xp / 5000)} • ${new Intl.NumberFormat('en-US').format(x.xp).replace(/,/g, " ")}xp ]\` <@${x.userId}>`);
             });
 
             let leaderboardEmbed = new EmbedBuilder()
