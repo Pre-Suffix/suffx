@@ -22,7 +22,9 @@ module.exports = {
 
         if(xps) {
 
-            if(page > Math.ceil(xps.length / 10)) page = Math.ceil(xps.length / 10);
+            let pageCount = Math.ceil(xps.lenght / 10);
+
+            if(page > pageCount) page = pageCount;
 
             xps.sort((a, b) => b.xp - a.xp);
             
@@ -36,7 +38,7 @@ module.exports = {
 
             let leaderboardEmbed = new EmbedBuilder()
             .setAuthor({
-                name: `Leaderboard for ${interaction.guild.name} • Page ${page}/${Math.ceil(xps.length / 10)}`,
+                name: `Leaderboard for ${interaction.guild.name} • Page ${page}/${pageCount}`,
                 iconURL: interaction.guild.iconURL()
             })
             .setColor(process.env.SUFFXCOLOR)
