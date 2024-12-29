@@ -2,7 +2,7 @@ const { Client, Message } = require("discord.js");
 const random = require("../../utils/random");
 const xpModel = require("../../models/xpModel");
 const serverModel = require("../../models/serverModel");
-const sentRecently = new Set();
+let sentRecently = new Set();
 
 /**
  * 

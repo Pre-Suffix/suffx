@@ -9,13 +9,15 @@ const client = new Discord.Client({
         Discord.IntentsBitField.Flags.Guilds,
         Discord.IntentsBitField.Flags.GuildMembers,
         Discord.IntentsBitField.Flags.GuildMessages,
+        Discord.IntentsBitField.Flags.GuildVoiceStates,
         Discord.IntentsBitField.Flags.MessageContent,
         Discord.IntentsBitField.Flags.GuildMessageReactions
     ],
     partials: [
         Discord.Partials.Channel,
         Discord.Partials.Message,
-        Discord.Partials.Reaction
+        Discord.Partials.Reaction,
+        Discord.Partials.GuildMember
     ]
 });
 
@@ -33,9 +35,10 @@ async function main() {
         await mongoose.connect(MONGO_URI);
         console.log("(1/4) Connected to database.")
 
-        client.login(TOKEN);
+        await client.login(TOKEN);
 
         eventHandler(client);
+
     } catch (err) {
         console.log(`index.js: ${err}`);
     }

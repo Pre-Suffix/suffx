@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-  <a href="https://github.com/Pre-Suffix"><img src="./SuffX.png" height="200" alt="SuffX Discord Bot" style="clip-path: circle();"></a>
+  <a href="https://github.com/Pre-Suffix"><img src="./SuffX.png" height="200" alt="SuffX Logo" style="clip-path: circle();"></a>
   <br>
   SuffX Discord Bot
   <br>
@@ -25,13 +25,14 @@
 ## 🔗 Resource Links
 
 - 🤖 Bot: [Invite Here](https://discord.com/oauth2/authorize?client_id=765366636571131944&permissions=1376805842000&integration_type=0&scope=bot%20applications.commands)
-- 📂 Documentation URL: [Visit Here](https://github.com/Pre-Suffix/suffx/wiki)
+- 📂 Documentation: [Visit Here](https://github.com/Pre-Suffix/suffx/wiki)
 
 ## 📦 Prerequisites
 
 - [Node.js](https://nodejs.org/en/) v18.17.0 or higher
 - [Git](https://git-scm.com/downloads)
 - [MongoDB](https://www.mongodb.com)
+- [FFMPEG](https://ffmpeg.org/)
 
 ## 🚀 Getting Started
 
