@@ -1,6 +1,6 @@
 {
     "version": "1.2",
-    "build": 237,
+    "build": 238,
     "codename": "Phoenix",
-    "changelog": "+ Adds music system."
+    "changelog": "+ Adds shuffle and playlist support to Music system."
 }

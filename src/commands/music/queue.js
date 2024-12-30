@@ -39,6 +39,8 @@ module.exports = async (client, interaction) => {
             })
             .setColor(process.env.SUFFXCOLOR);
 
+            if(queue.length > 11) desc.push(`*There are ${queue.length - 11} songs more that weren't shown.*`);
+
             if(desc.length != 0) embed.setDescription(desc.join("\n\n")).setAuthor({ name: "Next up:" });
 
             if(constructor.onRepeat) embed.setFooter({ text: `🔁 Looping is enabled. The queue will restart from the beginning after the last track ends.` });

@@ -51,6 +51,18 @@ module.exports = {
                         }
                     ],
                     type: ApplicationCommandOptionType.Subcommand
+                }, {
+                    name: "playlist",
+                    description: "Adds to the queue all videos from a YouTube playlist.",
+                    options: [
+                        {
+                            name: "playlist",
+                            description: "URL to the YouTube playlist (or to a video inside a playlist).",
+                            required: true,
+                            type: ApplicationCommandOptionType.String
+                        }
+                    ],
+                    type: ApplicationCommandOptionType.Subcommand
                 }
             ],
             type: ApplicationCommandOptionType.SubcommandGroup
@@ -123,6 +135,11 @@ module.exports = {
         }, {
             name: "restart",
             description: "Stops currently playing song, and restarts the queue back from the start.",
+            options: [],
+            type: ApplicationCommandOptionType.Subcommand
+        }, {
+            name: "shuffle",
+            description: "Shuffles all upcoming tracks.",
             options: [],
             type: ApplicationCommandOptionType.Subcommand
         }

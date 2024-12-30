@@ -2,6 +2,7 @@ const DiscordVoice = require("@discordjs/voice");
 const Discord = require("discord.js");
 const errorEmbed = require("../../../utils/errorEmbed");
 const toDuration = require("./toDuration");
+const youtubedl = require("youtube-dl-exec");
 let constructors = new Map();
 
 /**
@@ -177,7 +178,7 @@ exports.add = async (guildId, url, name, requestedBy, duration, live, youtubeLin
         let constructor = this.get(guildId);
 
         constructor.queue.push({ 
-            url: String(url), 
+            url: url, 
             name: String(name), 
             requestedBy: String(requestedBy), 
             youtubeURL: youtubeURL ?? null, 
@@ -188,6 +189,20 @@ exports.add = async (guildId, url, name, requestedBy, duration, live, youtubeLin
         });
 
         if(constructor.connection.state.status == "idle" || constructor.queue.length == 1) {
+            if(url == null && youtubeLink) {
+                const videoURL = await youtubedl(youtubeURL, {
+                    getUrl: true,
+                    noCheckCertificates: true,
+                    noWarnings: true,
+                    preferFreeFormats: true,
+                    addHeader: ['referer:youtube.com', 'user-agent:googlebot'],
+                    format: "ba[protocol=m3u8_native]"
+                });
+
+                url = videoURL;
+                constructor.queue[0].url = videoURL;
+            }
+
             const resource = await DiscordVoice.createAudioResource(url, {
                 inlineVolume: true
             });
@@ -221,6 +236,20 @@ exports.playNext = async (guildId, constructor = this.get(guildId)) => {
         constructor.pastSongs.push(constructor.queue.shift());
 
         let track = constructor.queue[0];
+
+        if(track.url == null && track.youtubeLink) {
+            const videoURL = await youtubedl(track.youtubeURL, {
+                getUrl: true,
+                noCheckCertificates: true,
+                noWarnings: true,
+                preferFreeFormats: true,
+                addHeader: ['referer:youtube.com', 'user-agent:googlebot'],
+                format: "ba[protocol=m3u8_native]"
+            });
+
+            track.url = videoURL;
+            constructor.queue[0].url = videoURL;
+        }
 
         const resource = await DiscordVoice.createAudioResource(track.url, {
             inlineVolume: true
