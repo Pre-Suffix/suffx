@@ -4,7 +4,7 @@ const splitText = require("../../utils/splitText");
 
 module.exports = (client, interaction) => {
     
-    import("../../utils/chatFunctions.mjs").then(async (chatFunctions) => {
+    import("./utils/chatFunctions.mjs").then(async (chatFunctions) => {
         let prompt = interaction.options.getString("prompt");
     
         let response = await chatFunctions.getChatResponse(
