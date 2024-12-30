@@ -58,7 +58,7 @@ module.exports = async (client, interaction) => {
             .setFields(fields)
             .setColor(process.env.SUFFXCOLOR)
             .setThumbnail(track.youtubeThumbnail)
-            .setDescription(track.live ? "ℹ️ *This content is live, therefore it will not stop playing until it's manually skipped.*" : null)
+            .setDescription(track.live ? "ℹ️ *This content is live, therefore it will not stop playing until the livestream is over.*" : null)
         ]});
     
     } else {

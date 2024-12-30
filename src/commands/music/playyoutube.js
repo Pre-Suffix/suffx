@@ -92,7 +92,7 @@ module.exports = async (client, interaction) => {
                         inline: true
                     }
                 ])
-                .setDescription(livestream ? "ℹ️ *This content is live, therefore it will not stop playing until it's manually skipped.*" : null)
+                .setDescription(livestream ? "ℹ️ *This content is live, therefore it will not stop playing until the livestream is over.*" : null)
                 .setThumbnail(thumbnail)
             ]});
             else interaction.editReply({ embeds: [ errorEmbed("There was an issue adding your song to the queue.") ] });

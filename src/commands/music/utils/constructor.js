@@ -187,7 +187,7 @@ exports.add = async (guildId, url, name, requestedBy, duration, live, youtubeLin
             youtubeThumbnail: youtubeThumbnail ?? null
         });
 
-        if(constructor.queue.length == 1) {
+        if(constructor.connection.state.status == "idle" || constructor.queue.length == 1) {
             const resource = await DiscordVoice.createAudioResource(url, {
                 inlineVolume: true
             });
@@ -292,6 +292,12 @@ exports.queueOver = async (guildId) => {
             ]});
 
         } else {
+            constructor.pastSongs.push(...constructor.queue);
+            constructor.queue = [];
+            constructor.resource = null;
+
+            this.update(guildId, constructor);
+
             let msg = await constructor.textChannel.send({ embeds: [ errorEmbed(`The bot will leave VC <t:${Math.floor(Date.now() / 1000) + 61}:R> if no new songs are added.`, "Queue has ended", process.env.SUFFXCOLOR) ] });
 
             setTimeout(() => {
