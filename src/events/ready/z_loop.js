@@ -1,6 +1,7 @@
 const { Client, EmbedBuilder } = require("discord.js");
 const Promise = require("bluebird");
 const timerModel = require("../../models/timerModel");
+const version = require("../../json/version.json");
 
 /**
  * 
@@ -90,5 +91,5 @@ async function loop(client) {
 
 module.exports = (client) => {
     loop(client);
-    console.log("(4/4) Started loop.");
+    console.log(`(4/4) Started loop.\nSuffX v${version.version}b${version.build} is online.`)
 }

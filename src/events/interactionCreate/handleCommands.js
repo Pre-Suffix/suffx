@@ -3,6 +3,11 @@ const getLocalCommands = require("../../utils/getLocalCommands");
 module.exports = async (client, interaction) => {
     if(!interaction.isChatInputCommand()) return;
 
+    if(!interaction.inGuild()) {
+        interaction.reply({ content: "Support for direct message commands isn't available." });
+        return;
+    }
+
     const localCommands = getLocalCommands();
 
     try {

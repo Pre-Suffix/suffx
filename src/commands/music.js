@@ -1,4 +1,6 @@
 const { ApplicationCommandOptionType, PermissionFlagsBits } = require("discord.js");
+const constructors = require("./music/utils/constructor");
+const errorEmbed = require("../utils/errorEmbed");
 
 module.exports = {
     name: "music",
@@ -69,7 +71,14 @@ module.exports = {
         }, {
             name: "skip",
             description: "Skips current track and plays next up on the queue.",
-            options: [],
+            options: [
+                {
+                    name: "totrack",
+                    description: "What track to skip to? Use /music queue to figure this out.",
+                    minValue: 1,
+                    type: ApplicationCommandOptionType.Integer
+                }
+            ],
             type: ApplicationCommandOptionType.Subcommand
         }, {
             name: "setvolume",
@@ -152,8 +161,16 @@ module.exports = {
     callback: async (client, interaction) => {
         let subCommand = interaction.options.getSubcommand();
         let subCommandGroup = interaction.options.getSubcommandGroup();
-        await interaction.deferReply();
+        let userVC = interaction.member?.voice.channel ?? false;
+        let myVC = interaction.guild.members.me?.voice.channel ?? false;
 
-        require(`./music/${subCommandGroup ?? ""}${subCommand}.js`)(client, interaction);
+        if(subCommand == "join") require("./music/join")(client, interaction);
+        else if(!constructors.has(interaction.guild.id) || !myVC) interaction.reply({ embeds: [ errorEmbed("The music session hasn't been initialized. Run `/music join` before running this command.", null) ] });
+        else if(((userVC && myVC) && userVC.id != myVC.id) || !userVC) interaction.reply({ embeds: [ errorEmbed("You need to be in the same voice channel as me to run this command.", null) ] });
+        else {
+            await interaction.deferReply();
+            
+            require(`./music/${subCommandGroup ?? ""}${subCommand}.js`)(client, interaction);
+        }
     }
 }

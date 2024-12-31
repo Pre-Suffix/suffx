@@ -10,20 +10,12 @@ const errorEmbed = require("../../utils/errorEmbed");
 
 
 module.exports = async (client, interaction) => {
-    const vc = interaction.guild.members.me.voice.channel;
+    let constructor = constructors.get(interaction.guild.id);
+    
+    constructor.volume = interaction.options.getInteger("volume");
+    if(constructor.resource) constructor.resource.volume.setVolume(constructor.volume / 100);
 
-    if(vc && constructors.has(interaction.guild.id)) {
+    constructors.update(interaction.guild.id, constructor);
 
-        let constructor = constructors.get(interaction.guild.id);
-        
-        constructor.volume = interaction.options.getInteger("volume");
-        if(constructor.resource) constructor.resource.volume.setVolume(constructor.volume / 100);
-
-        constructors.update(interaction.guild.id, constructor);
-
-        interaction.editReply({ embeds: [ errorEmbed("Volume changed to `" + constructor.volume + '`', null, process.env.SUFFXCOLOR) ] });
-        
-    } else {
-        interaction.editReply({ embeds: [ errorEmbed("You need to run `/music join` before running this command.", "Invalid syntax") ] });
-    }
+    interaction.editReply({ embeds: [ errorEmbed("Volume changed to `" + constructor.volume + '`', null, process.env.SUFFXCOLOR) ] });
 }

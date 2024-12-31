@@ -17,26 +17,18 @@ function shuffle(a) {
 }
 
 module.exports = async (client, interaction) => {
-    const vc = interaction.guild.members.me.voice.channel;
+    let constructor = constructors.get(interaction.guild.id);
 
-    if(vc && constructors.has(interaction.guild.id)) {
-
-        let constructor = constructors.get(interaction.guild.id);
-
-        if(constructor.queue.length < 2) {
-            interaction.editReply({ embeds: [ errorEmbed("You need at least two songs coming up next to shuffle.") ] });
-            return;
-        }
-
-        let nowPlaying = constructor.queue.shift();
-
-        constructor.queue = [ nowPlaying, ...shuffle(constructor.queue) ];
-
-        constructors.update(interaction.guild.id, constructor);
-
-        interaction.editReply({ embeds: [ errorEmbed("Successfully shuffled all upcoming tracks.", null, process.env.SUFFXCOLOR) ] });
-        
-    } else {
-        interaction.editReply({ embeds: [ errorEmbed("You need to run `/music join` before running this command.", "Invalid syntax") ] });
+    if(constructor.queue.length < 2) {
+        interaction.editReply({ embeds: [ errorEmbed("You need at least two songs coming up next to shuffle.") ] });
+        return;
     }
+
+    let nowPlaying = constructor.queue.shift();
+
+    constructor.queue = [ nowPlaying, ...shuffle(constructor.queue) ];
+
+    constructors.update(interaction.guild.id, constructor);
+
+    interaction.editReply({ embeds: [ errorEmbed("Successfully shuffled all upcoming tracks.", null, process.env.SUFFXCOLOR) ] });
 }

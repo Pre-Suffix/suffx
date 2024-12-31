@@ -10,19 +10,11 @@ const errorEmbed = require("../../utils/errorEmbed");
 
 
 module.exports = async (client, interaction) => {
-    const vc = interaction.guild.members.me.voice.channel;
+    let constructor = constructors.get(interaction.guild.id);
 
-    if(vc && constructors.has(interaction.guild.id)) {
+    constructor.onRepeat = false;
 
-        let constructor = constructors.get(interaction.guild.id);
+    constructors.update(interaction.guild.id, constructor);
 
-        constructor.onRepeat = false;
-
-        constructors.update(interaction.guild.id, constructor);
-
-        interaction.editReply({ embeds: [ errorEmbed("🔁 Looping has been disabled", null, process.env.SUFFXCOLOR) ] });
-        
-    } else {
-        interaction.editReply({ embeds: [ errorEmbed("You need to run `/music join` before running this command.", "Invalid syntax") ] });
-    }
+    interaction.editReply({ embeds: [ errorEmbed("🔁 Looping has been disabled", null, process.env.SUFFXCOLOR) ] });
 }

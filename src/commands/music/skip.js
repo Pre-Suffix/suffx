@@ -11,54 +11,56 @@ const toDuration = require("./utils/toDuration");
 
 
 module.exports = async (client, interaction) => {
-    const vc = interaction.guild.members.me.voice.channel;
+    let toTrack = interaction.options.getInteger("totrack") ?? 1;
+    let constructor = constructors.get(interaction.guild.id);
 
-    if(vc && constructors.has(interaction.guild.id)) {
+    if(toTrack > constructor.queue.length) {
+        interaction.editReply({ embeds: [ errorEmbed("Invalid track number.") ] });
+        return;
+    }
 
-        let played = await constructors.playNext(interaction.guild.id);
+    for(var i = 0; i < toTrack - 1; ++i) {
+        constructor.pastSongs.push(constructor.queue.shift());
+    }
 
-        let constructor = constructors.get(interaction.guild.id);
+    let played = await constructors.playNext(interaction.guild.id);
 
-        if(!played) {
-            interaction.editReply({ embeds: [ errorEmbed("Playing next track.", null, process.env.SUFFXCOLOR) ]});
+    if(!played) {
+        interaction.editReply({ embeds: [ errorEmbed("Playing next track.", null, process.env.SUFFXCOLOR) ]});
 
-            constructor.pastSongs.push(...constructor.queue);
-            constructor.queue = [];
-            constructor.player.stop();
+        constructor.pastSongs.push(...constructor.queue);
+        constructor.queue = [];
+        constructor.player.stop();
 
-            constructors.update(interaction.guild.id, constructor);
-        } else {
-            constructor = constructors.get(interaction.guild.id);
-
-            let track = constructor.queue[0];
-            let fields = [
-                {
-                    name: "Track:",
-                    value: `[\`${track.name}\`](${track.youtubeLink ? track.youtubeURL : track.url})`,
-                    inline: true
-                }, {
-                    name: "Requested by:",
-                    value: `<@${track.requestedBy}>`,
-                    inline: true
-                }
-            ];
-
-            if(track.duration != null) fields.push({
-                name: "Duration:",
-                value: '`' + toDuration(track.duration) + '`',
-                inline: true
-            });
-
-            interaction.editReply({ embeds: [
-                new Discord.EmbedBuilder()
-                .setTitle("Now playing")
-                .setFields(fields)
-                .setColor(process.env.SUFFXCOLOR)
-                .setThumbnail(track.youtubeThumbnail)
-            ]});
-        }
-        
+        constructors.update(interaction.guild.id, constructor);
     } else {
-        interaction.editReply({ embeds: [ errorEmbed("You need to run `/music join` before running this command.", "Invalid syntax") ] });
+        constructor = constructors.get(interaction.guild.id);
+
+        let track = constructor.queue[0];
+        let fields = [
+            {
+                name: "Track:",
+                value: `[\`${track.name}\`](${track.youtubeLink ? track.youtubeURL : track.url})`,
+                inline: true
+            }, {
+                name: "Requested by:",
+                value: `<@${track.requestedBy}>`,
+                inline: true
+            }
+        ];
+
+        if(track.duration != null) fields.push({
+            name: "Duration:",
+            value: '`' + toDuration(track.duration) + '`',
+            inline: true
+        });
+
+        interaction.editReply({ embeds: [
+            new Discord.EmbedBuilder()
+            .setTitle("Now playing")
+            .setFields(fields)
+            .setColor(process.env.SUFFXCOLOR)
+            .setThumbnail(track.youtubeThumbnail)
+        ]});
     }
 }

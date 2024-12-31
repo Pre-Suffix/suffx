@@ -327,7 +327,7 @@ exports.queueOver = async (guildId) => {
 
             this.update(guildId, constructor);
 
-            let msg = await constructor.textChannel.send({ embeds: [ errorEmbed(`The bot will leave VC <t:${Math.floor(Date.now() / 1000) + 61}:R> if no new songs are added.`, "Queue has ended", process.env.SUFFXCOLOR) ] });
+            let msg = await constructor.textChannel.send({ embeds: [ errorEmbed(`The bot will leave the voice channel <t:${Math.floor(Date.now() / 1000) + 61}:R> if no new songs are added.`, "Queue has ended", process.env.SUFFXCOLOR) ] });
 
             setTimeout(() => {
                 if(this.has(guildId)) {

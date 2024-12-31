@@ -1,6 +1,6 @@
 {
     "version": "1.2",
-    "build": 238,
+    "build": 239,
     "codename": "Phoenix",
-    "changelog": "+ Adds shuffle and playlist support to Music system."
+    "changelog": "+ Adds music queue pages and multi-track skipping."
 }
