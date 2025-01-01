@@ -1,5 +1,4 @@
 const { Client, EmbedBuilder } = require("discord.js");
-const Promise = require("bluebird");
 const timerModel = require("../../models/timerModel");
 const version = require("../../json/version.json");
 
@@ -10,7 +9,8 @@ const version = require("../../json/version.json");
 
 async function loop(client) {
     let allTimers = await timerModel.find({});
-    let curTime = Math.floor(Date.now() / 1000);
+    let start = Date.now();
+    let curTime = Math.floor(start / 1000);
 
     for(var i = 0; i < allTimers.length; ++i) {
         let timer = allTimers[i];
@@ -85,8 +85,7 @@ async function loop(client) {
         }
     }
 
-
-    return Promise.delay(5000).then(() => loop(client));
+    setTimeout(() => loop(client), offset < 250 ? 250 : offset);
 }
 
 module.exports = (client) => {

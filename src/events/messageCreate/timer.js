@@ -45,7 +45,7 @@ module.exports = async (client, message) => {
                 })
                 .then(() => {
                     message.reply({
-                        content: `Your new timer will set off <t:${setoffTS}:R>. If the time is wrong, try using only **H, M and S** in your time (ex. 12h34m56s).`
+                        content: `Your new timer will set off <t:${Math.round(setoffTS)}:R>. If the time is wrong, try using only **H, M and S** in your time (ex. 12h34m56s).`
                     });
                 });
             }

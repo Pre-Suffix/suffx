@@ -76,7 +76,7 @@ module.exports = {
             })
             .then(() => {
                 interaction.reply({
-                    content: `Your new timer will set off <t:${setoffTS}:R>. If the time is wrong, try using only **H, M and S** in your time (ex. 12h34m56s).`
+                    content: `Your new timer will set off <t:${Math.round(setoffTS)}:R>. If the time is wrong, try using only **H, M and S** in your time (ex. 12h34m56s).`
                 });
             });
 
@@ -98,7 +98,7 @@ module.exports = {
                 let timersDesc = [];
 
                 timers.forEach((x) =>
-                    timersDesc.push(`<t:${x.setoffTS}:R> • ${x.reminder ? "`" + x.reminder.replace(/`/g, "'") + "`" : "No reminder"}`)
+                    timersDesc.push(`<t:${Math.round(x.setoffTS)}:R> • ${x.reminder ? "`" + x.reminder.replace(/`/g, "'") + "`" : "No reminder"}`)
                 );
 
                 timersEmbed.setDescription(timersDesc.join("\n"));
