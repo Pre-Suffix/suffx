@@ -85,6 +85,9 @@ async function loop(client) {
         }
     }
 
+    let deltaT = Date.now() - start;
+    let offset = process.env.LOOP_OFFSET - deltaT;
+
     setTimeout(() => loop(client), offset < 250 ? 250 : offset);
 }
 
