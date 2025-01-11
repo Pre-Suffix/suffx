@@ -17,7 +17,7 @@ module.exports = () => {
         router.use("/" + routeName, require(path.join(folder, routeName + ".js")));
     }
 
-    router.get("/", (req, res) => res.send({ error: "Undefined API end point. Available end points: " + folders.map((x) => x.split("\\").pop()).join(", ") }));
+    router.get("/", (req, res) => res.send({ error: "Undefined API end point. Available end points: " + folders.map((x) => x.replace(/\\/g, "/").split("/").pop()).join(", ") }));
 
     return router;
     
