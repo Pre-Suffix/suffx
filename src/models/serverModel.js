@@ -1,7 +1,13 @@
 const { Schema, model } = require('mongoose');
 const serverSchema = new Schema({
-    guildId : String,
-    logChannel: String,
+    guildId: String,
+    active: Boolean,
+    logging: {
+        active: Boolean,
+        channelId: String,
+        messageEdit: Boolean,
+        messageDelete: Boolean
+    },
     levelRoles: [
         {
             roleId: String, 
@@ -9,9 +15,9 @@ const serverSchema = new Schema({
         }
     ],
     starboard: {
+        active: Boolean,
         channelId: String,
         minStars: Number,
-        active: Boolean,
         visibilityRole: String,
         reactionEmoji: {
             emoji: String,
@@ -24,9 +30,12 @@ const serverSchema = new Schema({
             }
         ]
     },
+    guild: {
+        name: String,
+        iconURL: String
+    },
     autoRoles: Array,
     keepRoles: Boolean,
-    serverName: String
 });
 
 module.exports = model("server", serverSchema);

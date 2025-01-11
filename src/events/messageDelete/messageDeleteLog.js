@@ -15,9 +15,9 @@ module.exports = async (client, message) => {
     });
 
     if(!server) return;
-    if(server.logChannel == "none" || server.logChannel == null) return;
+    if(server.logging?.active == false || !server.logging || server.logging?.messageDelete == false) return;
 
-    let logChannel = await message.guild.channels.fetch(server.logChannel);
+    let logChannel = await message.guild.channels.fetch(server.logging.channelId);
 
     if(typeof logChannel.send != "function" || !logChannel) return;
 

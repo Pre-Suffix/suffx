@@ -1,5 +1,5 @@
 const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, ApplicationCommandOptionType } = require("discord.js");
-const xpModel = require("../models/xpModel");
+const memberModel = require("../models/memberModel");
 
 module.exports = {
     name: "leaderboard",
@@ -15,24 +15,24 @@ module.exports = {
     permissionsRequired: [],
 
     callback: async (client, interaction) => {
-        let xps = await xpModel.find({
+        let users = await memberModel.find({
             guildId: String(interaction.guild.id)
         });
         let page = interaction.options.getInteger("page") ?? 1;
 
-        if(xps) {
+        if(users) {
 
-            let pageCount = Math.ceil(xps.length / 10);
+            let pageCount = Math.ceil(users.length / 10);
 
             if(page > pageCount) page = pageCount;
 
-            xps.sort((a, b) => b.xp - a.xp);
+            users.sort((a, b) => b.xp - a.xp);
             
             let description = [];
 
-            xps = xps.slice((page - 1) * 10, page * 10);
+            users = users.slice((page - 1) * 10, page * 10);
 
-            xps.forEach((x, i) => {
+            users.forEach((x, i) => {
                 description.push(`**${i + 1 + ((page - 1) * 10)}.** \`[ LEVEL ${Math.floor(x.xp / 5000)} • ${new Intl.NumberFormat('en-US').format(x.xp).replace(/,/g, " ")}xp ]\` <@${x.userId}>`);
             });
 
@@ -64,7 +64,7 @@ module.exports = {
             });
         } else {
             interaction.reply({
-                content: "There was a failiure retrieving this server's XPs."
+                content: "There was a failiure retrieving this server's users."
             });
         }
     }

@@ -1,4 +1,4 @@
-const { Client, Message } = require("discord.js");
+const { Client, Message, PermissionFlagsBits } = require("discord.js");
 const serverModel = require("../../models/serverModel");
 let checkedGuilds = new Set();
 
@@ -17,19 +17,41 @@ module.exports = async (client, message) => {
         let guild = await serverModel.findOne({
             guildId: String(message.guild.id)
         });
-    
+
         if(!guild) {
             serverModel.create({
                 guildId: String(message.guild.id),
-                levelRoles: [],
-                autoRoles: [],
-                starboard: {
-                    active: false
+                active: true,
+                logging: {
+                    active: false,
+                    channelId: "none",
+                    messageEdit: true,
+                    messageDelete: true
                 },
-                logChannel: "none",
+                levelRoles: [],
+                starboard: {
+                    active: false,
+                    channelId: null,
+                    minStars: 5,
+                    visibilityRole: null,
+                    reactionEmoji: {
+                        emoji: "⭐",
+                        defaultEmoji: true
+                    },
+                    emojis: []
+                },
+                guild: {
+                    name: String(message.guild.name),
+                    iconURL: message.guild.iconURL() ?? message.guild.nameAcronym
+                },
+                autoRoles: [],
                 keepRoles: false,
-                serverName: message.guild.name
             });
+        } else {
+            guild.guild.name = String(message.guild.name);
+            guild.guild.iconURL = message.guild.iconURL() ?? message.guild.nameAcronym;
+
+            guild.save();
         }
     } catch (err) {
         console.log("guild.js: ", err);   

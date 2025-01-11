@@ -1,10 +1,11 @@
 const { Schema, model } = require('mongoose');
-const xpSchema = new Schema({
+const memberSchema = new Schema({
     userId : String,
-    xp: Number,
     guildId: String,
+    admin: Boolean,
+    xp: Number,
     rolesGiven: Array,
     leftWithRoles: Array
 });
 
-module.exports = model("xp", xpSchema);
+module.exports = model("member", memberSchema);

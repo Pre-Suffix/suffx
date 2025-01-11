@@ -1,6 +1,6 @@
 const { Client, GuildMember } = require("discord.js");
 const serverModel = require("../../models/serverModel");
-const xpModel = require("../../models/xpModel");
+const memberModel = require("../../models/memberModel");
 
 /**
  * 
@@ -13,19 +13,19 @@ module.exports = async (client, member) => {
         guildId: member.guild.id
     });
 
-    let xp = await xpModel.findOne({
+    let user = await memberModel.findOne({
         guildId: member.guild.id,
         userId: member.id
     });
 
-    if(!server || !xp) return;
+    if(!server || !user) return;
 
     if(server.keepRoles != true) return;
 
-    xp.leftWithRoles = [];
+    user.leftWithRoles = [];
 
-    member.roles.cache.forEach((x) => { if(x.name != "@everyone") xp.leftWithRoles.push(x.id); });
+    member.roles.cache.forEach((x) => { if(x.name != "@everyone") user.leftWithRoles.push(x.id); });
 
-    xp.save();
+    user.save();
 
 }

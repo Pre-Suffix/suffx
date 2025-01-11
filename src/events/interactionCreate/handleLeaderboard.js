@@ -1,5 +1,5 @@
 const { Client, ButtonInteraction, ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder } = require("discord.js");
-const xpModel = require("../../models/xpModel");
+const memberModel = require("../../models/memberModel");
 
 /**
  * 
@@ -12,24 +12,24 @@ module.exports = async (client, interaction) => {
     if(!interaction.customId.startsWith("l_")) return;
 
     let interactionID = interaction.customId;
-    let xps = await xpModel.find({
+    let users = await memberModel.find({
         guildId: String(interaction.guild.id)
     });
 
-    let pageCount = Math.ceil(xps.length / 10);
+    let pageCount = Math.ceil(users.length / 10);
 
-    xps.sort((a, b) => b.xp - a.xp);
+    users.sort((a, b) => b.xp - a.xp);
 
     let page = +interactionID.split("_")[2] + (interactionID.startsWith("l_nextpage") ? 1 : -1);
 
-    if(page == 0) page = Math.ceil(xps.length / 10);
-    if(page > Math.ceil(xps.length / 10)) page = 1;
+    if(page == 0) page = Math.ceil(users.length / 10);
+    if(page > Math.ceil(users.length / 10)) page = 1;
 
-    xps = xps.slice((page - 1) * 10, page * 10);
+    users = users.slice((page - 1) * 10, page * 10);
 
     let description = [];
 
-    xps.forEach((x, i) => {
+    users.forEach((x, i) => {
         description.push(`**${i + 1 + ((page - 1) * 10)}.** \`[ LEVEL ${Math.floor(x.xp / 5000)} • ${new Intl.NumberFormat('en-US').format(x.xp).replace(/,/g, " ")}xp ]\` <@${x.userId}>`);
     });
 

@@ -52,7 +52,9 @@ module.exports = {
         if(subcommand === "enable") {
             let channel = interaction.options.getChannel("channel");
     
-            server.logChannel = channel.id;
+            server.logging.active = true;
+            server.logging.channelId = channel.id;
+
             server.save()
             .catch((e) => {
                 interaction.reply({
@@ -66,7 +68,9 @@ module.exports = {
                 });
             });
         } else {
-            server.logChannel = "none";
+            server.logging.active = false;
+            server.logging.channelId = "none";
+            
             server.save()
             .catch((e) => {
                 interaction.reply({

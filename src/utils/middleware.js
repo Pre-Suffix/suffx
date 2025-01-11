@@ -1,0 +1,1 @@
+exports.isAuthenticated = (req, res, next) => req.user ? next() : res.sendStatus(403);

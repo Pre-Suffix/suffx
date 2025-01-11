@@ -1,6 +1,6 @@
-const { Client, Message } = require("discord.js");
+const { Client, Message, PermissionFlagsBits } = require("discord.js");
 const random = require("../../utils/random");
-const xpModel = require("../../models/xpModel");
+const memberModel = require("../../models/memberModel");
 const serverModel = require("../../models/serverModel");
 let sentRecently = new Set();
 
@@ -19,15 +19,16 @@ module.exports = async (client, message) => {
     let givenXp = random(10, 20) * dayOfTheWeek;
 
     try {
-        const xp = await xpModel.findOne({
+        const user = await memberModel.findOne({
             userId: String(message.author.id),
             guildId: String(message.guild.id)
         });
 
-        if(xp) {
-            xp.xp += givenXp;
+        if(user) {
+            user.xp += givenXp;
+            user.admin = message.member.permissions.has(PermissionFlagsBits.Administrator) ?? false;
 
-            await xp.save().catch((e) => {
+            await user.save().catch((e) => {
                 console.log("xp.js: ", e);
                 return;
             });
@@ -43,16 +44,16 @@ module.exports = async (client, message) => {
 
             if(server && server.levelRoles?.length != 0) {
                 server.levelRoles.forEach(async (x) => {
-                    if(Math.floor(xp.xp / 5000) >= x.level && !xp.rolesGiven.includes(x.roleId)) {
+                    if(Math.floor(user.xp / 5000) >= x.level && !user.rolesGiven.includes(x.roleId)) {
                         let role = await message.guild.roles.fetch(x.roleId);
 
                         if(role) {
                             message.member.roles.add(role)
                             .catch((e) => console.log("xp.js: ", e))
                             .then(() => {
-                                xp.rolesGiven.push(x.roleId);
+                                user.rolesGiven.push(x.roleId);
 
-                                xp.save();
+                                user.save();
                             });
                         }
                     }
@@ -60,11 +61,13 @@ module.exports = async (client, message) => {
             }
 
         } else {
-            xpModel.create({
+            memberModel.create({
                 userId: String(message.author.id),
                 guildId: String(message.guild.id),
+                admin: message.member.permissions.has(PermissionFlagsBits.Administrator) ?? false,
                 xp: givenXp,
-                rolesGiven: []
+                rolesGiven: [],
+                leftWithRoles: []
             });
 
             sentRecently.add(message.author.id);

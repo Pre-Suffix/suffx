@@ -1,5 +1,5 @@
 const { ApplicationCommandOptionType, EmbedBuilder } = require("discord.js");
-const xpModel = require("../models/xpModel");
+const memberModel = require("../models/memberModel");
 
 module.exports = {
     name: "xp",
@@ -17,23 +17,23 @@ module.exports = {
     callback: async (client, interaction) => {
         let user = interaction.options.getUser("user") ?? interaction.user;
 
-        let xps = await xpModel.find({
+        let users = await memberModel.find({
             guildId: String(interaction.guild.id)
         });
 
-        xps.sort((a, b) => b.xp - a.xp);
+        users.sort((a, b) => b.xp - a.xp);
 
         let xp = false;
         let pos = 0;
 
-        xps.forEach((x, i) => {
+        users.forEach((x, i) => {
             if(x.userId == user.id) {
                 xp = x;
                 pos = i + 1;
             }
         });
 
-        if(xps && xp != false) {
+        if(users && xp != false) {
             let xpEmbed = new EmbedBuilder()
             .setDescription(`### <@${user.id}>'s XP`)
             .setColor(process.env.SUFFXCOLOR)

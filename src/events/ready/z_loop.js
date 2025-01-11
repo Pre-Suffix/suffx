@@ -93,5 +93,5 @@ async function loop(client) {
 
 module.exports = (client) => {
     loop(client);
-    console.log(`(4/4) Started loop.\nSuffX v${version.version}b${version.build} is online.`)
+    console.log(`• Started loop.\nSuffX v${version.version}b${version.build} is online.`)
 }

@@ -3,7 +3,7 @@ const getLocalCommands = require("../../utils/getLocalCommands");
 module.exports = async (client) => {
     const localCommands = getLocalCommands();
 
-    console.log("(3/4) Registering commands.")
+    console.log("• Registering commands.")
 
     try {
         const registeredCommands = await client.application.commands.fetch();

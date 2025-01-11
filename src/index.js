@@ -1,7 +1,9 @@
 require("dotenv").config();
 const Discord = require("discord.js");
 const mongoose = require("mongoose");
+const clientUtils = require("./utils/client");
 const eventHandler = require("./handlers/eventHandler");
+const apiHandler = require("./handlers/apiHandler");
 
 const client = new Discord.Client({
     intents: [
@@ -27,17 +29,20 @@ async function main() {
         let TOKEN = process.env.DISCORD_TOKEN;
 
         if(process.argv[2] == "--dev") {
-            console.log("====RUNNING IN DEV MODE=====")
+            console.log("====RUNNING IN DEV MODE====")
             MONGO_URI = process.env.DEV_MONGO_URI;
             TOKEN = process.env.DISCORD_DEV_TOKEN;
         }
 
         await mongoose.connect(MONGO_URI);
-        console.log("(1/4) Connected to database.")
+        console.log("• Connected to database.");
 
         await client.login(TOKEN);
 
+        clientUtils.set(client);
+
         eventHandler(client);
+        apiHandler(MONGO_URI);
 
     } catch (err) {
         console.log(`index.js: ${err}`);
