@@ -19,11 +19,13 @@ module.exports = (mongoUrl) => {
         resave: false, 
         saveUninitialized: false,
         cookie: {
-            maxAge: 60000 * 60 * 24 * 30
+            maxAge: 60000 * 60 * 24 * 30,
+            domain: (new URL(process.env.DASHBOARD_URL)).host
         },
         store: store.create({
             mongoUrl
-        })
+        }),
+        proxy: true
     }));
 
     app.use(passport.initialize());
