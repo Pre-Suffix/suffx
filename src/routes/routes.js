@@ -12,7 +12,7 @@ module.exports = () => {
     let folders = getAllFiles(path.join(__dirname), true);
 
     for(var folder of folders) {
-        const routeName = folder.split("\\").pop();
+        const routeName = folder.replace(/\\/g, "/").split("/").pop();
 
         router.use("/" + routeName, require(path.join(folder, routeName + ".js")));
     }
