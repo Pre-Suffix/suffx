@@ -16,7 +16,7 @@ export async function getCompletion(prompt, model = "gpt-3.5-turbo-instruct", te
         best_of: 1
     });
 
-    return response.choices[0].text.replace(/`/g, "'") ?? false;
+    return response.choices[0].text.replace(/`/g, "'").slice(0, 1900) ?? false;
 }
 
 export async function getChatResponse(prompt, model = "gpt-4o-mini", instructions = "", previousMessages = [], attachment = "") {
