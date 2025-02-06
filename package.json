@@ -36,6 +36,6 @@
     "passport": "^0.7.0",
     "passport-discord": "^0.1.4",
     "uuid": "^11.0.3",
-    "youtube-dl-exec": "^3.0.10"
+    "youtube-dl-exec": "^3.0.15"
   }
 }
