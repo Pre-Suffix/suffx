@@ -10,6 +10,8 @@ const serverModel = require("../../models/serverModel");
 module.exports = async (client, message) => {
     if(message.partial || !message?.guild) return;
 
+    if(message.content?.startsWith("Message ") && message.author.id === client.user.id) return;
+
     let server = await serverModel.findOne({
         guildId: message.guild.id
     });

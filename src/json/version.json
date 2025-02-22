@@ -1,6 +1,6 @@
 {
     "version": "1.3",
-    "build": 240,
+    "build": 241,
     "codename": "Tower",
-    "changelog": "+ Adds full support for web dashboard."
+    "changelog": "+ Enables deletions of message logs."
 }
