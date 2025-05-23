@@ -1,6 +1,4 @@
 const { ApplicationCommandOptionType, PermissionFlagsBits } = require("discord.js");
-const constructors = require("../music/old_music/utils/constructor");
-const errorEmbed = require("../utils/errorEmbed");
 
 module.exports = {
     name: "music",
