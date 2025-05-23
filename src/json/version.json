@@ -1,6 +1,6 @@
 {
     "version": "1.3",
-    "build": 241,
+    "build": 242,
     "codename": "Tower",
-    "changelog": "+ Enables deletions of message logs."
+    "changelog": "+ Re-worked music functionality."
 }

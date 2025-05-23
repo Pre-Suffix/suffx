@@ -19,7 +19,7 @@ module.exports = async (client) => {
         localCommands.forEach(async (x) => {
             let name = x.name;
             let description = x.description;
-            let options = typeof x.options === "undefined" ? [] : x.options;
+            let options = x.options ?? [];
 
             console.log(`Registering command: ${x.name}`);
 

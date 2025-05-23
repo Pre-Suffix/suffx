@@ -12,7 +12,7 @@ module.exports = async (client, interaction) => {
     if(!interaction.isButton()) return;
 
     const interactionID = interaction.customId.toString();
-    if(!interactionID.startsWith("ms_nextpage") && !interactionID.startsWith("ms_lastpage")) return;
+    if(!interactionID.startsWith("ms_refresh")) return;
 
     if(!sessionHandler.sessions.has(interaction.guildId)) 
         return interaction.message.delete();
@@ -24,12 +24,11 @@ module.exports = async (client, interaction) => {
         return interaction.update({ embeds: [ errorEmbed("Queue is empty.", null) ], components: [] });
 
     let pageCount = Math.ceil((queue.length - 1) / 9);
-    let page = +interactionID.split("_").pop()
-    + (interactionID.startsWith("ms_nextpage") ? 1 : -1);
+    let page = +interactionID.split("_").pop();
 
     if(page > pageCount) page = 1;
-    else if(page < 1) page = pageCount;
 
+    
     let description = [];
 
     for(let i = (page - 1) * 10; (i < (page * 10)) && (i < session.queue.length); ++i) {

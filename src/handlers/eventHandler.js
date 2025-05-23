@@ -12,7 +12,12 @@ module.exports = (client) => {
         client.on(eventName, async (arg, arg2) => {
             for (const eventFile of eventFiles) {
                 const eventFunction = require(eventFile);
-                await eventFunction(client, arg, arg2);
+                try {
+                    await eventFunction(client, arg, arg2);
+                } catch (error) {
+                    console.log(error);
+                }
+
             }
         })
     }

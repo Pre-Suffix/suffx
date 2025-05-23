@@ -1,7 +1,7 @@
 const { EmbedBuilder } = require("discord.js");
 
 /**
- * 
+ * Returns a basic error embed.
  * @param { String } description 
  * @param { String } title 
  * @returns { EmbedBuilder }

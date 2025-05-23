@@ -1,40 +1,34 @@
 const Discord = require("discord.js");
-const sessionHandler = require("../../music/utils/sessionHandler");
-const errorEmbed = require("../../utils/errorEmbed");
-const toDuration = require("../../utils/toDuration");
+const errorEmbed = require("../utils/errorEmbed");
+const sessionHandler = require("./utils/sessionHandler");
+const toDuration = require("../utils/toDuration");
 
 /**
- * Handles button interactions on a Music Session's queue.
+ * 
  * @param { Discord.Client } client 
- * @param { Discord.ButtonInteraction } interaction 
+ * @param { Discord.CommandInteraction } interaction 
  */
+
 module.exports = async (client, interaction) => {
-    if(!interaction.isButton()) return;
-
-    const interactionID = interaction.customId.toString();
-    if(!interactionID.startsWith("ms_nextpage") && !interactionID.startsWith("ms_lastpage")) return;
-
-    if(!sessionHandler.sessions.has(interaction.guildId)) 
-        return interaction.message.delete();
+    if(!sessionHandler.sessions.has(interaction.guildId)) {
+        interaction.reply({ embeds: [ errorEmbed("There is no session initialized. Add a track using `/music add` to start the session.") ]} );
+        return;
+    }
 
     let session = sessionHandler.sessions.get(interaction.guildId);
-    let queue = [ ...session.queue ];
 
-    if(queue.length == 0)
-        return interaction.update({ embeds: [ errorEmbed("Queue is empty.", null) ], components: [] });
+    if(session.voiceChannel.id != interaction.member.voice?.channel.id || session.textChannel.id != interaction.channel.id) {
+        interaction.reply({ embeds: [ errorEmbed(`To use the music functitonality, connect to <#${session.voiceChannel.id}> and send your commands on <#${session.textChannel.id}>.`, "") ] });
+        return;
+    }
 
-    let pageCount = Math.ceil((queue.length - 1) / 9);
-    let page = +interactionID.split("_").pop()
-    + (interactionID.startsWith("ms_nextpage") ? 1 : -1);
-
-    if(page > pageCount) page = 1;
-    else if(page < 1) page = pageCount;
+    if(session.queue.length == 0) return interaction.reply({ embeds: [ errorEmbed("There are no songs in the queue", null) ] });
 
     let description = [];
 
-    for(let i = (page - 1) * 10; (i < (page * 10)) && (i < session.queue.length); ++i) {
+    for(let i = 0; (i < 10) && (i < session.queue.length); ++i) {
         let item = "";
-        let track = queue[i];
+        let track = session.queue[i];
 
         if(i == 0 && session.loopMode == "track") item += "> **🔂 On repeat:** ";
         else if(i == 0) item += "> **▶️ Now playing:** "
@@ -56,12 +50,12 @@ module.exports = async (client, interaction) => {
     const embed = new Discord.EmbedBuilder()
     .setColor(process.env.SUFFXCOLOR)
     .setDescription(description.join("\n\n"))
-    .setAuthor({ name: `Page ${page}/${pageCount}` });
+    .setAuthor({ name: "Page 1/" + Math.ceil((session.queue.length - 1) / 9) });
 
     let actionRow = new Discord.ActionRowBuilder()
     .addComponents(
         new Discord.ButtonBuilder()
-        .setCustomId("ms_refresh_" + page)
+        .setCustomId("ms_refresh_1")
         .setLabel("Refresh")
         .setEmoji("🔃")
         .setStyle(Discord.ButtonStyle.Success)
@@ -70,12 +64,12 @@ module.exports = async (client, interaction) => {
     if(session.queue.length > 10)
         actionRow.addComponents(
             new Discord.ButtonBuilder()
-            .setCustomId("ms_lastpage_" + page)
+            .setCustomId("ms_lastpage_1")
             .setLabel("Previous Page")
             .setEmoji("◀️")
             .setStyle(Discord.ButtonStyle.Primary),
             new Discord.ButtonBuilder()
-            .setCustomId("ms_nextpage_" + page)
+            .setCustomId("ms_nextpage_1")
             .setLabel("Next Page")
             .setEmoji("▶️")
             .setStyle(Discord.ButtonStyle.Primary)
@@ -83,5 +77,5 @@ module.exports = async (client, interaction) => {
     
     if(session.loopMode == "queue") embed.setFooter({ text: "🔁 Queue looping is enabled. Once the last track ends, playback will restart from the beginning." });
 
-    interaction.update({ embeds: [ embed ], components: [ actionRow ] });
+    interaction.reply({ embeds: [ embed ], components: [ actionRow ] });
 }
