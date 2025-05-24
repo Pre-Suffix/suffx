@@ -9,11 +9,13 @@ exports.isAudio = async (url) => {
 
     try {
         let res = await fetch(url, { method: "HEAD", mode: "no-cors" });
-        if(res.ok && (res.headers.get("content-type").startsWith("audio") || res.headers.get("content-type") == "application/vnd.apple.mpegurl")) 
+        if(res.ok && (res.headers.get("content-type").startsWith("audio") || res.headers.get("content-type") == "application/vnd.apple.mpegurl") || res.headers.get("content-type") == "application/octet-stream") 
             return true;
     } catch (_) {
         return false;
     }
+
+    return false;
 }
 
 /**
