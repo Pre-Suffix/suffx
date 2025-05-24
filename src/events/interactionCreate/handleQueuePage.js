@@ -23,7 +23,7 @@ module.exports = async (client, interaction) => {
     if(queue.length == 0)
         return interaction.update({ embeds: [ errorEmbed("Queue is empty.", null) ], components: [] });
 
-    let pageCount = Math.ceil((queue.length - 1) / 9);
+    let pageCount = Math.max(1, Math.ceil((queue.length - 1) / 9));
     let page = +interactionID.split("_").pop()
     + (interactionID.startsWith("ms_nextpage") ? 1 : -1);
 

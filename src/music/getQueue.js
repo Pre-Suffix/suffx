@@ -50,7 +50,7 @@ module.exports = async (client, interaction) => {
     const embed = new Discord.EmbedBuilder()
     .setColor(process.env.SUFFXCOLOR)
     .setDescription(description.join("\n\n"))
-    .setAuthor({ name: "Page 1/" + Math.ceil((session.queue.length - 1) / 9) });
+    .setAuthor({ name: "Page 1/" + Math.max(1, Math.ceil((session.queue.length - 1) / 9)) });
 
     let actionRow = new Discord.ActionRowBuilder()
     .addComponents(
