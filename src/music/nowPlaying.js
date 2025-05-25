@@ -2,6 +2,7 @@ const Discord = require("discord.js");
 const errorEmbed = require("../utils/errorEmbed");
 const sessionHandler = require("./utils/sessionHandler");
 const toDuration = require("../utils/toDuration");
+const getProgress = require("../utils/getProgress");
 
 /**
  * 
@@ -47,7 +48,7 @@ module.exports = async (client, interaction) => {
             inline: true
         }, {
             name: "Progress:",
-            value: `\`${toDuration(session.resource.playbackDuration / 1000)} [${Array(Math.floor((session.resource.playbackDuration / 1000 / track.duration) * 25)).fill("#").join("")}${Array(25 - Math.floor((session.resource.playbackDuration / 1000 / track.duration) * 25)).fill("-").join("")}] ${toDuration(track.duration)}\``,
+            value: `\`${toDuration(session.resource.playbackDuration / 1000)} [${getProgress((session.resource.playbackDuration / 1000 / track.duration), 25)}] ${toDuration(track.duration)}\``,
             inline: false
         }
     ]);

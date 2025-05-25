@@ -48,3 +48,13 @@ npm install
 - Wait for all the dependencies to be installed
 - Rename `.env_example` to `.env` and fill the values
 - Type `npm run start` to start the bot
+
+## ❗ Known Issues
+
+- Depending on where the bot is installed, the music functionality will not work. Some troubleshooting steps are:
+  - check whether FFMPEG is installed
+  - uninstall and re-install the NPM package "ffmpeg-static"
+  - uninstall and re-install the NPM package "opusscript"
+  - uninstall "opusscript" and install "@discordjs/opus" (requires build tools)
+
+If none of the above steps work, open an issue in the issues tab.

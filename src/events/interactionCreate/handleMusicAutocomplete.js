@@ -16,7 +16,7 @@ module.exports = async (client, interaction) => {
         }
 
         let suggestions = await youtubeHandler.getRecommendations(query);
-        if(!!suggestions.error) suggestions = [ "Query is too long." ];
+        if(!!suggestions.error || query.length > 100) suggestions = [ "Query is too long." ];
 
         await interaction.respond(
             suggestions.map(choice => ({name: choice, value: choice}))

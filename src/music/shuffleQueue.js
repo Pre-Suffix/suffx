@@ -22,7 +22,8 @@ module.exports = async (client, interaction) => {
         return;
     }
 
-    if(session.queue.length < 2) {
+    const shuffleType = interaction.options.getString("type");
+    if((session.queue.length <= 2 && shuffleType == "upcoming") || ((session.queue.length + session.pastSongs.length) <= 2 && shuffleType == "queue")) {
         interaction.reply({ embeds: [ errorEmbed("Queue is too short, can't shuffle.") ] });
         return;
     } else if(session.skipping) {
@@ -32,18 +33,40 @@ module.exports = async (client, interaction) => {
 
     session.skipping = true;
 
-    for(let i = 1; i < session.queue.length; ++i) {
-        let randomIndex = random(1, session.queue.length - 1);
-        let temp = session.queue[i];
-        session.queue[i] = session.queue[randomIndex];
-        session.queue[randomIndex] = temp;
+    if(shuffleType == "upcoming") {
+        for(let i = 1; i < session.queue.length; ++i) {
+            let randomIndex = random(1, session.queue.length - 1);
+            let temp = session.queue[i];
+            session.queue[i] = session.queue[randomIndex];
+            session.queue[randomIndex] = temp;
+        }
+
+        interaction.reply({ embeds: [
+            new Discord.EmbedBuilder()
+            .setColor(process.env.SUFFXCOLOR)
+            .setDescription("🔀 Shuffled upcoming tracks.")
+        ]});
+
+    } else {
+        let newQueue = [ ...(session.queue ?? []), ...(session.pastSongs ?? []) ];
+        newQueue.splice(0, 1);
+
+        for(let i = 0; i < newQueue.length; ++i) {
+            let randomIndex = random(0, newQueue.length - 1);
+            let temp = newQueue[i];
+            newQueue[i] = newQueue[randomIndex];
+            newQueue[randomIndex] = temp;
+        }
+
+        session.queue = [ session.queue[0], ...newQueue ];
+        session.pastSongs = [];
+
+        interaction.reply({ embeds: [
+            new Discord.EmbedBuilder()
+            .setColor(process.env.SUFFXCOLOR)
+            .setDescription("🔀 Shuffled queue.")
+        ]});
     }
 
     session.skipping = false;
-
-    interaction.reply({ embeds: [
-        new Discord.EmbedBuilder()
-        .setColor(process.env.SUFFXCOLOR)
-        .setDescription("🔀 Shuffled upcoming tracks.")
-    ]});
 }

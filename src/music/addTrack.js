@@ -5,6 +5,7 @@ const youtubeHandler = require("../utils/youtubeHandler");
 const queryParser = require("./utils/queryParser");
 const sessionHandler = require("./utils/sessionHandler");
 const connectToChannel = require("./utils/connectToChannel");
+const errorEmbed = require("../utils/errorEmbed");
 
 function textToDuration(simpleText) {
     let total = 0;
@@ -42,7 +43,9 @@ module.exports = async (client, interaction) => {
     await interaction.deferReply();
 
     const query = interaction.options.getString("query");
-    const queryType = queryParser.getType(query);
+    const queryType = await queryParser.getType(query);
+
+    if(queryType == "invalid") return interaction.editReply({ embeds: [ errorEmbed("The URL you provided is invalid.") ] });
 
     let session;
 
@@ -54,6 +57,9 @@ module.exports = async (client, interaction) => {
         if(!voiceChannel.permissionsFor(interaction.guild.members.me).has(Discord.PermissionFlagsBits.Speak) || 
            !voiceChannel.permissionsFor(interaction.guild.members.me).has(Discord.PermissionFlagsBits.Connect)) {
             interaction.reply({ embeds: [ errorEmbed("I cannot connect to or speak in the voice channel you're in. Please connect to another one or contact an admin to fix the permissions.") ] });
+            return;
+        } else if(!textChannel.permissionsFor(interaction.guild.members.me).has(Discord.PermissionFlagsBits.SendMessages)) {
+            interaction.reply({ embeds: [ errorEmbed("I cannot send messages in the text channel you're in. Please connect to another one or contact an admin to fix the permissions.") ] });
             return;
         }
 

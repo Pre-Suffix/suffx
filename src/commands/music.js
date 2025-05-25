@@ -86,8 +86,24 @@ module.exports = {
             type: ApplicationCommandOptionType.Subcommand
         }, {
             name: "shuffle",
-            description: "Shuffles upcoming tracks.",
-            options: [],
+            description: "Shuffles tracks.",
+            options: [
+                {
+                    name: "type",
+                    description: "What kind of shuffle do you want to do?",
+                    choices: [
+                        {
+                            name: "Shuffle upcoming tracks",
+                            value: "upcoming"
+                        }, {
+                            name: "Shuffle entire queue",
+                            value: "queue"
+                        }
+                    ],
+                    required: true,
+                    type: ApplicationCommandOptionType.String
+                }
+            ],
             type: ApplicationCommandOptionType.Subcommand
         }, {
             name: "stats",

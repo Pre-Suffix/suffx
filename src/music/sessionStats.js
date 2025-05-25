@@ -56,7 +56,7 @@ module.exports = async (client, interaction) => {
             }, {
                 name: (session.loopMode == "track" ? "🔂 On Repeat" : "🔈 Now Playing"),
                 value: `[\`${track.live ? "🔴 Live` `" : ""}${track.name}\`](${track.youtubeLink ? track.youtubeURL : track.url}) • <@${track.requestedBy}>`
-                + (track.duration == null ? "" : ' • ' + toDuration(track.duration)),
+                + (!track.duration ? "" : ' • ' + toDuration(track.duration)),
                 inline: false
             }
         ])

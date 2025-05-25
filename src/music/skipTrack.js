@@ -22,7 +22,7 @@ module.exports = async (client, interaction) => {
     }
 
     if(session.skipping) {
-        interaction.reply({ embeds: [ errorEmbed("You cannot run this command more than once simultaneously.") ] });
+        interaction.reply({ embeds: [ errorEmbed("You cannot run this command right now. Try again later.") ] });
         return;
     }
 
@@ -33,6 +33,20 @@ module.exports = async (client, interaction) => {
     session.skipping = true;
     session.player.stop();
     session.resource = null;
+
+    if(session.loopMode == "track") {
+        await session.play(0);
+
+        session.skipping = false;
+
+        interaction.editReply({ embeds: [
+            new Discord.EmbedBuilder()
+            .setColor(process.env.SUFFXCOLOR)
+            .setDescription("🔂 Restarted playback of current track (Track looping enabled).")
+        ]});
+
+        return;
+    }
 
     for(let i = 1; (i <= toTrack) && (session.queue.length > 0); ++i) session.pastSongs.push(session.queue.shift());
 
