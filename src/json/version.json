@@ -1,6 +1,6 @@
 {
-    "version": "1.3",
-    "build": 243,
-    "codename": "Tower",
-    "changelog": "+ Changed `/music shuffle` to be more functional.\n+ Fixes bugs in the music system."
+    "version": "1.4",
+    "build": 244,
+    "codename": "Soapbox",
+    "changelog": "+ Adds brand-new Soapbox functionality."
 }

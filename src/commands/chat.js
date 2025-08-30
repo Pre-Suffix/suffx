@@ -108,6 +108,12 @@ module.exports = {
 
     callback: async (client, interaction) => {
         let subCommand = interaction.options.getSubcommand();
+        let validSubcommands = [
+            "completion", "sendonce", "send", "end", "fetch"
+        ];
+
+        if(!validSubcommands.includes(subCommand)) return;
+        
         let ephemeralSubCommands = [ "fetch" ];
         await interaction.deferReply({ ephemeral: ephemeralSubCommands.includes(subCommand) });
 
