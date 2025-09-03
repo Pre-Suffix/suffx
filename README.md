@@ -41,7 +41,6 @@
 ```
 git clone https://github.com/Pre-Suffix/suffx.git
 cd suffx
-mkdir chatlogs
 npm install
 ```
 

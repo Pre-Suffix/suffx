@@ -1,6 +1,6 @@
 {
     "version": "1.4",
-    "build": 244,
+    "build": 245,
     "codename": "Soapbox",
-    "changelog": "+ Adds brand-new Soapbox functionality."
+    "changelog": "- Removes all AI functionality"
 }

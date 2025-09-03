@@ -58,7 +58,8 @@ module.exports = (client, message) => {
         "beg",
         "sell",
         "widenus",
-        "dadjoke"
+        "dadjoke",
+        "ai"
     ]
 
     if(message.author.bot || !String(message.content).startsWith(".")) return;

@@ -2,121 +2,22 @@ const { ApplicationCommandOptionType } = require("discord.js");
 
 module.exports = {
     name: "chat",
-    description: "ChatGPT-based chat command.",
-    options: [
-        {
-            name: "completion",
-            description: "Old-style GPT, simply completes your input.",
-            options: [
-                {
-                    name: "prompt",
-                    description: "Your prompt.",
-                    required: true,
-                    maxLength: 50,
-                    type: ApplicationCommandOptionType.String
-                }, {
-                    name: "model",
-                    description: "The GPT model being used.",
-                    required: false,
-                    choices: [
-                        { name: 'GPT 3.5 (most advanced)', value: 'gpt-3.5-turbo-instruct' },
-                        { name: 'Davinci (middle-ground)', value: 'davinci-002' },
-                        { name: 'Babbage (most basic)',    value: 'babbage-002' }
-                    ],
-                    type: ApplicationCommandOptionType.String
-                }, {
-                    name: "temperature",
-                    description: "How random, from 0 to 1, the result is. Use decimals",
-                    required: false,
-                    type: ApplicationCommandOptionType.Number,
-                    min_value: 0.0,
-                    max_value: 1.0
-                }
-            ],
-            type: ApplicationCommandOptionType.Subcommand
-        }, {
-            name: "sendonce",
-            description: "Uses ChatGPT, but without maintaining a conversation.",
-            options: [
-                {
-                    name: "prompt",
-                    description: "Your prompt.",
-                    required: true,
-                    maxLength: 512,
-                    type: ApplicationCommandOptionType.String
-                }, {
-                    name: "model",
-                    description: "The ChatGPT model to be used.",
-                    required: false,
-                    choices: [
-                        { name: "GPT-4o (most advanced)", value: "gpt-4o" },
-                        { name: "GPT-4o mini (recommended)", value: "gpt-4o-mini" },
-                        { name: "GPT-3.5 (less advanced)", value: "gpt-3.5-turbo" }
-                    ],
-                    type: ApplicationCommandOptionType.String
-                }, {
-                    name: "instructions",
-                    description: "Instructions on how the AI should act.",
-                    required: false,
-                    maxLength: 512,
-                    type: ApplicationCommandOptionType.String
-                }
-            ],
-            type: ApplicationCommandOptionType.Subcommand
-        }, {
-            name: "send",
-            description: "Sends a message in your active conversation, or starts a new one.",
-            options: [
-                {
-                    name: "prompt",
-                    description: "Your prompt.",
-                    required: true,
-                    maxLength: 512,
-                    type: ApplicationCommandOptionType.String
-                }, {
-                    name: "model",
-                    description: "The ChatGPT model to be used.",
-                    required: false,
-                    choices: [
-                        { name: "GPT-4o (most advanced)", value: "gpt-4o" },
-                        { name: "GPT-4o mini (recommended)", value: "gpt-4o-mini" },
-                        { name: "GPT-3.5 (less advanced)", value: "gpt-3.5-turbo" }
-                    ],
-                    type: ApplicationCommandOptionType.String
-                }, {
-                    name: "instructions",
-                    description: "Instructions on how the AI should act.",
-                    required: false,
-                    maxLength: 512,
-                    type: ApplicationCommandOptionType.String
-                }
-            ],
-            type: ApplicationCommandOptionType.Subcommand
-        }, {
-            name: "end",
-            description: "Ends the active conversation.",
-            options: [],
-            type: ApplicationCommandOptionType.Subcommand
-        }, {
-            name: "fetch",
-            description: "Retrieves you a saved conversation.",
-            options: [],
-            type: ApplicationCommandOptionType.Subcommand
-        }
-    ],
+    description: "This command has been disabled.",
+    options: [],
     permissionsRequired: [],
 
     callback: async (client, interaction) => {
-        let subCommand = interaction.options.getSubcommand();
-        let validSubcommands = [
-            "completion", "sendonce", "send", "end", "fetch"
-        ];
+        //  This system has been removed because I am tired of paying money to OpenAI.
+        //  At some point, I may substitute it for some other AI system, one that is
+        //  actually open. Until then however, if you run an instance of my bot and want
+        //  to continue using this, run an older version. I can't be bothered to fix it
+        //  (since it has been broken since GPT-5 got released).
+        //  
+        //  If you're reading this, I hope you have a good day, and please don't contact
+        //  me about this.
 
-        if(!validSubcommands.includes(subCommand)) return;
-        
-        let ephemeralSubCommands = [ "fetch" ];
-        await interaction.deferReply({ ephemeral: ephemeralSubCommands.includes(subCommand) });
-
-        require(`./chat/${subCommand}.js`)(client, interaction);
+        interaction.reply({
+            content: "This command has been disabled."
+        })
     }
 }
