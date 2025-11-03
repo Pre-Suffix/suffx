@@ -44,7 +44,7 @@ module.exports = async (client, message) => {
 
             if(server && server.levelRoles?.length != 0) {
                 server.levelRoles.forEach(async (x) => {
-                    if(Math.floor(Math.log(user.xp / 1000) / Math.log(1.1)) + 1 >= x.level && !user.rolesGiven.includes(x.roleId)) {
+                    if(Math.max(-1, Math.floor(Math.log(user.xp / 1000) / Math.log(1.1))) + 1 >= x.level && !user.rolesGiven.includes(x.roleId)) {
                         let role = await message.guild.roles.fetch(x.roleId);
 
                         if(role) {

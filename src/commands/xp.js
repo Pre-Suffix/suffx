@@ -40,7 +40,7 @@ module.exports = {
             .setThumbnail(user.avatarURL({ size: 4096 }))
             .addFields([
                 {
-                    name: `#${new Intl.NumberFormat('en-US').format(pos).replace(/,/g, " ")} • Lvl ${Math.floor(Math.log(xp.xp / 1000) / Math.log(1.1)) + 1} • ${new Intl.NumberFormat('en-US').format(xp.xp).replace(/,/g, " ")}xp`,
+                    name: `#${new Intl.NumberFormat('en-US').format(pos).replace(/,/g, " ")} • Lvl ${Math.max(-1, Math.floor(Math.log(xp.xp / 1000) / Math.log(1.1))) + 1} • ${new Intl.NumberFormat('en-US').format(xp.xp).replace(/,/g, " ")}xp`,
                     value: `\`[${new Array(Math.floor((xp.xp % 5000 / 5000) * 25)).fill("=").join("")}${new Array(25 - Math.floor((xp.xp % 5000 / 5000) * 25)).fill(" ").join("")}]\``
                 }
             ]);
