@@ -30,7 +30,7 @@ module.exports = async (client, interaction) => {
     let description = [];
 
     users.forEach((x, i) => {
-        description.push(`**${i + 1 + ((page - 1) * 10)}.** \`[ LEVEL ${Math.floor(Math.log2(x.xp / 1000)) + 1} • ${new Intl.NumberFormat('en-US').format(x.xp).replace(/,/g, " ")}xp ]\` <@${x.userId}>`);
+        description.push(`**${i + 1 + ((page - 1) * 10)}.** \`[ LEVEL ${Math.floor(Math.log(x.xp / 1000) / Math.log(1.1)) + 1} • ${new Intl.NumberFormat('en-US').format(x.xp).replace(/,/g, " ")}xp ]\` <@${x.userId}>`);
     });
 
     let leaderboardEmbed = new EmbedBuilder()
