@@ -1,6 +1,6 @@
 {
     "version": "1.4",
-    "build": 245,
+    "build": 246,
     "codename": "Soapbox",
-    "changelog": "- Removes all AI functionality"
+    "changelog": "+ Changes how XP Levels are calculated."
 }
