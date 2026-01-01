@@ -54,7 +54,7 @@ const getPuzzle = async (userid) => {
     let user = await crypticModel.findOne({ userId: userid });
     if(!user) return false;
 
-    const date = moment().tz(user.timezone).toISOString().split('T')[0];
+    const date = moment().tz(user.timezone).format("YYYY-MM-DD");
     if(user?.puzzleDate == date) return JSON.parse(user.puzzleJSON);
 
     if(!puzzles.has(date)) {
