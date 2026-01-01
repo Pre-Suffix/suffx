@@ -45,7 +45,7 @@ module.exports = {
         if(!interaction.member.permissions.has(PermissionFlagsBits.Administrator)) {
             interaction.reply({
                 content: "You don't have enough permissions.",
-                ephemeral: true
+                flags: "Ephemeral"
             });
             return;
         } 
@@ -67,12 +67,12 @@ module.exports = {
             if(interaction.guild.members.me.roles.highest.comparePositionTo(roleId) < 1) {
                 interaction.reply({
                     content: "I cannot give this role out, as it is higher in the roles than my highest role.",
-                    ephemeral: true
+                    flags: "Ephemeral"
                 });
             } else if(server.autoRoles.includes(roleId)) {
                 interaction.reply({
                     content: "This role is already in this server's autorole list.",
-                    ephemeral: true
+                    flags: "Ephemeral"
                 });
             } else {
                 server.autoRoles.push(roleId);
@@ -81,7 +81,7 @@ module.exports = {
                 .then(() => {
                     interaction.reply({
                         content: `Role <@&${roleId}> has been added to the server's autorole list.`,
-                        ephemeral: true
+                        flags: "Ephemeral"
                     });
                 })
                 .catch((e) => {
@@ -103,12 +103,12 @@ module.exports = {
 
                 interaction.reply({
                     content,
-                    ephemeral: true
+                    flags: "Ephemeral"
                 });
             } else {
                 interaction.reply({
                     content: "This server has no auto roles.",
-                    ephemeral: true
+                    flags: "Ephemeral"
                 });
             }
         } else if(subCommand === "remove") {
@@ -123,7 +123,7 @@ module.exports = {
                 .then(() => {
                     interaction.reply({
                         content: `Role <@&${roleId}> successfully removed from the auto role list.`,
-                        ephemeral: true
+                        flags: "Ephemeral"
                     });
                 })
                 .catch((e) => {
@@ -133,7 +133,7 @@ module.exports = {
             } else {
                 interaction.reply({
                     content: "This role isn't in the auto role list.",
-                    ephemeral: true
+                    flags: "Ephemeral"
                 });
             }
         }

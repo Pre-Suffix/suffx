@@ -1,6 +1,6 @@
 {
     "version": "1.4",
-    "build": 246,
-    "codename": "Soapbox",
-    "changelog": "+ Changes how XP Levels are calculated."
+    "build": 247,
+    "codename": "Nouveau",
+    "changelog": "+ Adds the MinuteCryptic puzzle into the bot\n+ Fixes the METAR command"
 }

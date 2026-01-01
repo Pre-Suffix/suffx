@@ -1,6 +1,6 @@
 {
   "name": "suffx",
-  "version": "1.4.246",
+  "version": "1.4.247",
   "description": "SuffX Bot for Discord, rewritten",
   "main": "src/index.js",
   "engines": {
@@ -29,13 +29,15 @@
     "express": "^4.21.2",
     "express-session": "^1.18.1",
     "ffmpeg-static": "^5.2.0",
+    "fuse.js": "^7.1.0",
+    "moment-timezone": "^0.6.0",
     "mongoose": "^8.9.2",
     "opusscript": "^0.0.8",
-    "parse-duration": "^1.1.2",
+    "parse-duration": "^2.1.5",
     "passport": "^0.7.0",
     "passport-discord": "^0.1.4",
     "uuid": "^11.0.3",
     "youtube-dl-exec": "^3.0.15",
-    "youtube-search-api": "^1.2.2"
+    "youtube-search-api": "^2.0.1"
   }
 }

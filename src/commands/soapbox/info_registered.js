@@ -39,7 +39,7 @@ module.exports = async (client, interaction) => {
     }
 
     interaction.reply({
-        content, ephemeral: true
+        content, flags: "Ephemeral"
     });
 
 };

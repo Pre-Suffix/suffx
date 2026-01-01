@@ -51,7 +51,7 @@ module.exports = {
         if(!interaction.member.permissions.has(PermissionFlagsBits.Administrator)) {
             interaction.reply({
                 content: "You need the `ADMINISTRATOR` permission to run this command.",
-                ephemeral: true
+                flags: "Ephemeral"
             });
             return;
         }
@@ -64,7 +64,7 @@ module.exports = {
         if(!server) {
             interaction.reply({
                 content: "There was a failiure retrieving the server's info.",
-                ephemeral: true
+                flags: "Ephemeral"
             });
             return;
         }
@@ -81,7 +81,7 @@ module.exports = {
 
                 interaction.reply({
                     content: `Level role edited: <@&${role.id}> changed to level ${level}`,
-                    ephemeral: true
+                    flags: "Ephemeral"
                 });
             } else {
                 server.levelRoles.push({
@@ -93,7 +93,7 @@ module.exports = {
 
                 interaction.reply({
                     content: `Created level role: <@&${role.id}> at level ${level}.`,
-                    ephemeral: true
+                    flags: "Ephemeral"
                 });
             }
         } else if(subCommand === "remove") {
@@ -111,12 +111,12 @@ module.exports = {
 
                 interaction.reply({
                     content: `Deleted level role: <@&${dlr.roleId}> at level ${dlr.level}`,
-                    ephemeral: true
+                    flags: "Ephemeral"
                 });
             } else {
                 interaction.reply({
                     content: `No level role exists for <@&${role.id}>. Use \`/levelrole list\` to list all active level roles.`,
-                    ephemeral: true
+                    flags: "Ephemeral"
                 });
             }
         } else {
@@ -137,7 +137,7 @@ module.exports = {
                 embeds: [
                     levelRolesEmbed
                 ],
-                ephemeral: true
+                flags: "Ephemeral"
             });
         }
 

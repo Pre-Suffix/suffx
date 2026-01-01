@@ -22,7 +22,7 @@ module.exports = async (client, interaction) => {
                 if(!bot.permissions.has(permission)) {
                     interaction.reply({
                         content: "I don't have enough permissions to run this command. Please check if the bot is properly configured.",
-                        ephemeral: true
+                        flags: "Ephemeral"
                     });
                     break;
                 }

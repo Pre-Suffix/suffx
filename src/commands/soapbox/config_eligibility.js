@@ -34,6 +34,6 @@ module.exports = async (client, interaction) => {
 
     interaction.reply({
         content: `Settings saved, eligibility role now <@&${role.id}>.`,
-        ephemeral: true
+        flags: "Ephemeral"
     });
 };

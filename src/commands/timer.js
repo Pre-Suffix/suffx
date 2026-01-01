@@ -47,7 +47,7 @@ module.exports = {
             if(typeof setoffTS !== "number") {
                 interaction.reply({
                     content: "Duration given is invalid. Try using only **H, M and S** in your time (ex. 12h34m56s).",
-                    ephemeral: true
+                    flags: "Ephemeral"
                 });
                 return;
             }
@@ -70,7 +70,7 @@ module.exports = {
             .catch((e) => {
                 interaction.reply({
                     content: "There was an error creating your timer. Try later.",
-                    ephemeral: true
+                    flags: "Ephemeral"
                 });
                 console.log("timer.js: ", e);
             })
@@ -108,7 +108,7 @@ module.exports = {
                 embeds: [
                     timersEmbed
                 ],
-                ephemeral: true
+                flags: "Ephemeral"
             });
         }
     }

@@ -32,7 +32,7 @@ module.exports = {
         if(!interaction.member.permissions.has(PermissionFlagsBits.Administrator)) {
             interaction.reply({
                 content: "You need the `ADMINISTRATOR` permission to run this command.",
-                ephemeral: true
+                flags: "Ephemeral"
             });
             return;
         }
@@ -43,7 +43,7 @@ module.exports = {
         if(!server) {
             interaction.reply({
                 content: "There was a problem retrieving server preferences. Try again later.",
-                ephemeral: true
+                flags: "Ephemeral"
             });
         }
     

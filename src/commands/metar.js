@@ -47,7 +47,7 @@ module.exports = {
     permissionsRequired: [],
 
     callback: async (client, interaction) => {
-        let metar = await fetch.json(`https://aviationweather.gov/cgi-bin/data/metar.php?ids=${interaction.options.getString("airport")}&hours=0&order=id%2C-obs&sep=true&format=json`);
+        let metar = await fetch.json(`https://aviationweather.gov/api/data/metar?ids=${interaction.options.getString("airport")}&hours=0&order=id%2C-obs&sep=true&format=json`);
 
         if(metar.length == 0) return interaction.reply("Invalid ICAO code.");
 
@@ -58,7 +58,7 @@ module.exports = {
             name: `Info for ${metar.icaoId}`
         })
         .setColor(process.env.SUFFXCOLOR)
-        .setTimestamp(new Date(metar.reportTime + "Z"))
+        .setTimestamp(new Date(metar.reportTime))
         .addFields([
             {
                 name: "Raw METAR",
