@@ -10,11 +10,16 @@ const youtubedl = require("youtube-dl-exec");
 exports.getRecommendations = (query) => {
     const timeLimit = new Promise((res, rej) => {
         setTimeout(() => {
-            res([query]);
+            res([query,[query]]);
         }, 1000);
     });
 
-    return Promise.race([timeLimit, fetch.json("https://pipedapi.kavin.rocks/suggestions?query=" + encodeURI(query))]);
+    try {
+        let q = fetch.json("http://suggestqueries.google.com/complete/search?client=firefox&ds=yt&q=" + encodeURI(query));
+
+        return Promise.race([timeLimit, q]);
+    } catch (_) {}
+
 }
 
 /**

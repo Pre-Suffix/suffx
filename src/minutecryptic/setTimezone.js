@@ -1,4 +1,5 @@
 const crypticModel = require("../models/crypticModel");
+const timezones = require("../json/timezones.json");
 const { Client, CommandInteraction } = require("discord.js");
 
 /**
@@ -8,6 +9,11 @@ const { Client, CommandInteraction } = require("discord.js");
  */
 module.exports = async (client, interaction) => {
     const timezone = interaction.options.getString("timezone");
+    if(!timezones.includes(timezone)) {
+        interaction.reply("Invalid timezone.");
+        return;
+    }
+
     const user = await crypticModel.findOne({ userId: interaction.user.id.toString() });
     let success = false;
 

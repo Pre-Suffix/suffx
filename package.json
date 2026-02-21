@@ -1,6 +1,6 @@
 {
   "name": "suffx",
-  "version": "1.4.247",
+  "version": "1.4.248",
   "description": "SuffX Bot for Discord, rewritten",
   "main": "src/index.js",
   "engines": {

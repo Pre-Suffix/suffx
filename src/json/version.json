@@ -1,6 +1,6 @@
 {
     "version": "1.4",
-    "build": 247,
+    "build": 248,
     "codename": "Nouveau",
-    "changelog": "+ Adds the MinuteCryptic puzzle into the bot\n+ Fixes the METAR command"
+    "changelog": "+ Fixes /music add autocomplete."
 }
